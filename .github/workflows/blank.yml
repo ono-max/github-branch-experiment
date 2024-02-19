@@ -2,12 +2,10 @@
 
 name: CI
 
-# Controls when the workflow will run
+# Controls when the workflow will ru
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-  pull_request:
-    branches: [ "main" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -19,18 +17,14 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # Steps represent a sequence of tasks that will be executed as part of the jo
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
         with:
           fetch-depth: 0
-          fetch-tags: false
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: |
-          echo $GITHUB_REF
-          echo $GITHUB_HEAD_REF
-          echo $GITHUB_BASE_REF
+      - run: |
+          echo "github.event_name=${{ github.event_name }}"
+          echo "GITHUB_HEAD_REF=$GITHUB_HEAD_REF"
+          echo "GITHUB_BASE_REF=$GITHUB_BASE_REF"
+          echo "----- Output for 'git show-ref' -----"
           git show-ref
